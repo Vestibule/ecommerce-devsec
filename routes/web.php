@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,6 +56,20 @@ Route::get('/basket', function () {
     });
     return view('ecommerce.basket', ['items' => $items, 'total' => $total]);
 })->name('ecommerce.basket');
+
+Route::middleware('auth')->get('/order', function(Request $request) {
+    $productId = $request->input('product');
+    $quantity = $request->input('quantity');
+
+    /** @var User $user */
+    $user = auth()->user();
+    $order = $user->orders()->create();
+
+    $res = DB::statement("INSERT INTO order_product(product_id, order_id, quantity) VALUES ($productId, " . $order->id . ", $quantity)");
+
+    session()->put('basket', []);
+    return view('ecommerce.order', ['order' => $order]);
+})->name('ecommerce.checkout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

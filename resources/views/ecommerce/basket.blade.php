@@ -3,7 +3,7 @@
         <main class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
 
-            <form method="POST" action="{{ route('ecommerce.checkout') }}" class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+            <form action="{{ route('ecommerce.checkout') }}" class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
                 <section aria-labelledby="cart-heading" class="lg:col-span-7">
                     <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
@@ -28,10 +28,11 @@
                                         </div>
                                         <p class="mt-1 text-sm font-medium text-gray-900">$32.00</p>
                                     </div>
+                                    <input type="hidden" name="product" value="{{ $item['product']->id }}">
 
                                     <div class="mt-4 sm:mt-0 sm:pr-9">
                                         <label for="quantity-0" class="sr-only">Quantity, Basic Tee</label>
-                                        <select id="quantity-0" name="quantity-0" class="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                        <select id="quantity-0" name="quantity" class="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                                             <option @if($item['quantity'] === 1) selected="selected" @endif value="1">1</option>
                                             <option @if($item['quantity'] === 2) selected="selected" @endif value="2">2</option>
                                             <option @if($item['quantity'] === 3) selected="selected" @endif value="3">3</option>
